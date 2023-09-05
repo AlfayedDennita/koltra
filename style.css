@@ -1,0 +1,297 @@
+:root {
+  /* Fonts */
+  --brand-font: 'Libre Baskerville', Times, serif;
+  --body-font: 'Open Sans', Arial, sans-serif;
+
+  /* Colors */
+  --white: #ffffff;
+  --white-rgb: 255, 255, 255;
+  --black: #000000;
+  --black-rgb: 0, 0, 0;
+  --text: #0f0f0f;
+  --text-rgb: 15, 15, 15;
+  --primary: #d63031;
+  --primary-rgb: 214, 48, 49;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--white);
+  font-family: var(--body-font);
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1;
+}
+
+a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
+.brand {
+  font-family: var(--brand-font);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.brand a {
+  color: var(--primary);
+}
+
+/* Header */
+
+header {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  background-color: var(--white);
+  box-shadow: 0 0.1rem 0.25rem rgb(var(--black-rgb), 0.1);
+}
+
+header + * {
+  margin-top: 4rem;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+#nav-toggle {
+  z-index: 20;
+  width: 1.75rem;
+  height: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+@media (min-width: 576px) {
+  #nav-toggle {
+    display: none;
+  }
+}
+
+#nav-toggle > * {
+  width: 100%;
+  height: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: var(--black);
+  transition: width 0.15s ease-out, background-color 0.25s;
+}
+
+#nav-toggle:hover > * {
+  background-color: var(--primary);
+}
+
+#nav-toggle.open > *:nth-child(2) {
+  width: 75%;
+}
+
+#nav-toggle.open > *:nth-child(3) {
+  width: 50%;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: var(--white);
+  overflow-y: auto;
+  transition: left 0.25s;
+}
+
+@media (min-width: 576px) {
+  nav {
+    display: contents;
+  }
+}
+
+#nav-toggle.open + nav {
+  left: 0;
+}
+
+nav h2 {
+  padding: 1.25rem 1rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+@media (min-width: 576px) {
+  nav h2 {
+    display: none;
+  }
+}
+
+nav ul {
+  height: 100%;
+  min-height: 5rem;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  overflow-y: auto;
+}
+
+@media (min-width: 576px) {
+  nav ul {
+    min-height: initial;
+    flex-direction: row;
+  }
+}
+
+nav a {
+  width: 100%;
+  display: inline-block;
+  padding: 1rem;
+  font-weight: 500;
+  transition: background-color 0.25s, font-weight 0.25s;
+}
+
+nav a:hover {
+  background-color: #eeeeee;
+  font-weight: 700;
+}
+
+nav a span {
+  transition: padding-left 0.5s;
+}
+
+nav a:hover span {
+  padding-left: 0.75rem;
+}
+
+@media (min-width: 576px) {
+  nav a {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+  }
+
+  nav a:hover {
+    font-weight: 500;
+  }
+
+  nav a:hover span {
+    padding: 0;
+  }
+}
+
+/* Main */
+
+main {
+  flex-grow: 1;
+}
+
+/* Footer */
+
+footer {
+  padding: 1rem 0;
+  background-color: #222222;
+  border-top: 0.15rem solid #111111;
+  color: #999999;
+}
+
+footer .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (min-width: 576px) {
+  footer {
+    padding: 1.5rem 0;
+  }
+
+  footer .container {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+#footer-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+#footer-left h2 {
+  font-size: 1.25rem;
+  user-select: none;
+  transition: color 0.25s;
+}
+
+#footer-left h2:hover {
+  color: #bbbbbb;
+}
+
+#footer-left p {
+  font-size: 0.8rem;
+}
+
+@media (min-width: 576px) {
+  #footer-left {
+    align-items: flex-start;
+    gap: 0.5rem;
+    text-align: left;
+  }
+
+  #footer-left h2 {
+    font-size: 1.75rem;
+  }
+}
+
+#footer-right {
+  font-size: 0.8rem;
+}
+
+#footer-right a {
+  font-weight: bold;
+  color: #999999;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.25s;
+}
+
+#footer-right a:hover {
+  text-decoration-color: initial;
+}
