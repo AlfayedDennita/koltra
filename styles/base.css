@@ -1,0 +1,143 @@
+:root {
+  /* Fonts */
+  --brand-font: 'Libre Baskerville', Times, serif;
+  --body-font: 'Open Sans', Arial, sans-serif;
+
+  /* Colors */
+  --white: #ffffff;
+  --white-rgb: 255, 255, 255;
+  --black: #000000;
+  --black-rgb: 0, 0, 0;
+  --text: #222222;
+  --text-rgb: 34, 34, 34;
+  --gray: #eeeeee;
+  --gray-rgb: 238, 238, 238;
+  --gray-2: #bbbbbb;
+  --gray-2-rgb: 187, 187, 187;
+  --primary: #d63031;
+  --primary-rgb: 214, 48, 49;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  font-family: var(--body-font);
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+body::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #eeeeee;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  background-clip: content-box;
+  border-inline: 0.2rem solid transparent;
+  border-radius: 0.5rem;
+}
+
+a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding-inline: 1rem;
+  margin-inline: auto;
+}
+
+.brand {
+  font-family: var(--brand-font);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.brand__link {
+  color: var(--primary);
+}
+
+.truncate {
+  --truncate-lines: 1;
+
+  display: -webkit-box;
+  -webkit-line-clamp: var(--truncate-lines);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.skeleton {
+  position: relative;
+  background-color: var(--gray);
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  translate: -100% 0;
+  background-image: linear-gradient(
+    to right,
+    rgba(var(--white-rgb), 0) 0%,
+    rgba(var(--white-rgb), 0.2) 20%,
+    rgba(var(--white-rgb), 0.5) 60%,
+    rgba(var(--white-rgb), 0)
+  );
+  animation: shimmer 1s infinite;
+}
+
+@keyframes shimmer {
+  to {
+    translate: 100% 0;
+  }
+}
+
+.load-error {
+  min-width: 5rem;
+  min-height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: var(--gray);
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--gray-2);
+}
+
+.load-error__icon {
+  font-size: 2rem;
+}

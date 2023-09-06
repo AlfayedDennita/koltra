@@ -3,7 +3,7 @@ export const SITES = [
   {
     name: 'ANTARA News',
     path: 'antara',
-    logo: 'antara.png',
+    logoSrc: 'images/site-logos/antara.png',
     categoryPaths: {
       hot: 'terbaru',
       sport: 'olahraga',
@@ -13,21 +13,21 @@ export const SITES = [
     },
   },
   {
-    name: 'Merdeka.com',
-    path: 'merdeka',
-    logo: 'merdeka.png',
+    name: 'Okezone',
+    path: 'okezone',
+    logoSrc: 'images/site-logos/okezone.png',
     categoryPaths: {
       hot: 'terbaru',
-      sport: 'olahraga',
-      technology: 'teknologi',
+      sport: 'sports',
+      technology: 'techno',
       automotive: 'otomotif',
-      lifestyle: 'gaya',
+      lifestyle: 'lifestyle',
     },
   },
   {
     name: 'SINDONews',
     path: 'sindonews',
-    logo: 'sindonews.png',
+    logoSrc: 'images/site-logos/sindonews.png',
     categoryPaths: {
       hot: 'terbaru',
       sport: 'sports',
@@ -39,7 +39,7 @@ export const SITES = [
   {
     name: 'Suara.com',
     path: 'suara',
-    logo: 'suara.png',
+    logoSrc: 'images/site-logos/suara.png',
     categoryPaths: {
       hot: 'terbaru',
       sport: 'bola',
@@ -51,7 +51,7 @@ export const SITES = [
   {
     name: 'Tribun',
     path: 'tribun',
-    logo: 'tribun.png',
+    logoSrc: 'images/site-logos/tribun.png',
     categoryPaths: {
       hot: 'terbaru',
       sport: 'bola',
