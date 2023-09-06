@@ -1,4 +1,4 @@
-export default function loadErrorTemplate() {
+export function loadErrorTemplate() {
   return `
     <div class="load-error">
       <i class="load-error__icon fa-solid fa-heart-crack fa-fw"></i>

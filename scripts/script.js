@@ -1,25 +1,26 @@
 import { API_BASE_URL, SITES, CATEGORIES } from './constants.js';
 
 import { navItemTemplate } from './templates/navItem.js';
+import { loadErrorTemplate } from './templates/loadError.js';
 import {
-  headlineMainArticleTemplate,
-  headlineMainArticleSkeleton,
-} from './templates/headlineMainArticle.js';
+  headlineMainPostTemplate,
+  headlineMainPostSkeleton,
+} from './templates/headlineMainPost.js';
 import {
-  headlineSideArticleTemplate,
-  headlineSideArticleSkeleton,
-} from './templates/headlineSideArticle.js';
+  headlineSidePostTemplate,
+  headlineSidePostSkeleton,
+} from './templates/headlineSidePost.js';
 import siteGroupTemplate from './templates/siteGroup.js';
 import {
   siteGroupNewsTemplate,
   siteGroupNewsSkeleton,
 } from './templates/siteGroupNews.js';
-import loadErrorTemplate from './templates/loadError.js';
 import categoryTemplate from './templates/category.js';
 
 function init() {
   renderNavItems();
   listenToNavActions();
+  renderHeadlinePosts();
 }
 
 init();
@@ -27,9 +28,9 @@ init();
 function renderNavItems() {
   const navList = document.querySelector('.header__nav-list');
   navList.innerHTML = '';
-  SITES.forEach(({ path, name }) => {
+  for (const { path, name } of SITES) {
     navList.innerHTML += navItemTemplate({ id: path, name });
-  });
+  }
 }
 
 function toggleNav() {
@@ -62,14 +63,86 @@ function listenToNavActions() {
   });
 
   const navLinks = document.querySelectorAll('.header__nav-link');
-  navLinks.forEach((navLink) => {
+  for (const navLink of navLinks) {
     navLink.addEventListener('click', () => {
       toggleNav();
 
       const target = document.querySelector(navLink.getAttribute('href'));
       target?.scrollIntoView();
     });
-  });
+  }
+}
+
+function getRandomArrayIndex(array) {
+  return Math.round(Math.random() * (array.length - 1));
+}
+
+async function renderHeadlinePosts() {
+  const mainPostWrapper = document.querySelector(
+    '.headline__main-post-wrapper'
+  );
+  const sidePostsWrapper = document.querySelector(
+    '.headline__side-posts-wrapper'
+  );
+
+  mainPostWrapper.innerHTML = '';
+  sidePostsWrapper.innerHTML = '';
+
+  mainPostWrapper.innerHTML += headlineMainPostSkeleton();
+  for (let i = 0; i < 4; i++) {
+    sidePostsWrapper.innerHTML += headlineSidePostSkeleton();
+  }
+
+  const headlinePosts = [];
+
+  for (let i = 0; i < 5; i++) {
+    const randomSiteIndex = getRandomArrayIndex(SITES);
+    const randomCategoryIndex = getRandomArrayIndex(CATEGORIES);
+    const site = SITES[randomSiteIndex];
+    const sitePath = site.path;
+    const categoryPath = site.categoryPaths[CATEGORIES[randomCategoryIndex].id];
+
+    try {
+      const res = await fetch(`${API_BASE_URL}${sitePath}/${categoryPath}`);
+      const {
+        success,
+        data: { posts },
+      } = await res.json();
+
+      if (!success) {
+        throw new Error();
+      }
+
+      headlinePosts.push({
+        siteName: site.name,
+        siteLogoSrc: site.logoSrc,
+        ...posts[getRandomArrayIndex(posts)],
+      });
+    } catch (error) {
+      headlinePosts.push(null);
+    }
+  }
+
+  mainPostWrapper.innerHTML = '';
+  sidePostsWrapper.innerHTML = '';
+
+  for (const [index, post] of headlinePosts.entries()) {
+    if (post === null) {
+      mainPostWrapper.innerHTML += loadErrorTemplate();
+      continue;
+    }
+
+    const postData = {
+      ...post,
+      thumbnailSrc: post.thumbnail,
+    };
+
+    if (index === 0) {
+      mainPostWrapper.innerHTML += headlineMainPostTemplate(postData);
+    } else {
+      sidePostsWrapper.innerHTML += headlineSidePostTemplate(postData);
+    }
+  }
 }
 
 const categoryList = document.querySelector('.news-by-category__category-list');
@@ -102,89 +175,6 @@ categoryButtons.forEach((categoryButton) => {
     }
   });
 });
-
-function getRandomArrayIndex(array) {
-  return Math.floor(Math.random() * (array.length - 1));
-}
-
-async function renderHeadlineNews() {
-  const mainArticleWrapper = document.querySelector(
-    '.headline__main-article-wrapper'
-  );
-  const sideArticlesWrapper = document.querySelector(
-    '.headline__side-articles-wrapper'
-  );
-
-  mainArticleWrapper.innerHTML = '';
-  sideArticlesWrapper.innerHTML = '';
-
-  mainArticleWrapper.innerHTML += headlineMainArticleSkeleton();
-  for (let i = 0; i < 4; i++) {
-    sideArticlesWrapper.innerHTML += headlineSideArticleSkeleton();
-  }
-
-  const headlineNews = [];
-
-  for (let i = 0; i < 5; i++) {
-    const randomSiteIndex = getRandomArrayIndex(SITES);
-    const randomCategoryIndex = getRandomArrayIndex(CATEGORIES);
-    const site = SITES[randomSiteIndex];
-    const sitePath = site.path;
-    const categoryPath = site.categoryPaths[CATEGORIES[randomCategoryIndex].id];
-
-    try {
-      const res = await fetch(`${API_BASE_URL}${sitePath}/${categoryPath}`);
-      const news = await res.json();
-
-      if (!news.success) {
-        throw new Error();
-      }
-
-      headlineNews.push({
-        siteName: site.name,
-        siteLogoSrc: site.logoSrc,
-        ...news.data.posts[getRandomArrayIndex(news.data.posts)],
-      });
-    } catch (error) {
-      headlineNews.push(null);
-    }
-  }
-
-  mainArticleWrapper.innerHTML = '';
-  sideArticlesWrapper.innerHTML = '';
-
-  headlineNews.forEach((news, index) => {
-    if (index === 0) {
-      if (news === null) {
-        mainArticleWrapper.innerHTML += loadErrorTemplate();
-      } else {
-        mainArticleWrapper.innerHTML += headlineMainArticleTemplate({
-          link: news.link,
-          thumbnailSrc: news.thumbnail,
-          title: news.title,
-          description: news.description,
-          siteName: news.siteName,
-          siteLogoSrc: news.siteLogoSrc,
-        });
-      }
-    } else {
-      if (news === null) {
-        sideArticlesWrapper.innerHTML += loadErrorTemplate();
-      } else {
-        sideArticlesWrapper.innerHTML += headlineSideArticleTemplate({
-          link: news.link,
-          thumbnailSrc: news.thumbnail,
-          title: news.title,
-          description: news.description,
-          siteName: news.siteName,
-          siteLogoSrc: news.siteLogoSrc,
-        });
-      }
-    }
-  });
-}
-
-renderHeadlineNews();
 
 function renderSiteGroups() {
   const sitesWrapper = document.querySelector(
