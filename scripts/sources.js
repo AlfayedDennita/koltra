@@ -2,8 +2,9 @@ export const BASE_URL = 'https://api-berita-indonesia.vercel.app/';
 export const SITES = [
   {
     name: 'ANTARA News',
+    homePage: 'https://www.antaranews.com',
+    logoSrc: '/images/site-logos/antara.png',
     path: 'antara',
-    logoSrc: 'images/site-logos/antara.png',
     categoryPaths: {
       hot: 'terbaru',
       sport: 'olahraga',
@@ -14,8 +15,9 @@ export const SITES = [
   },
   {
     name: 'Okezone',
+    homePage: 'https://www.okezone.com',
+    logoSrc: '/images/site-logos/okezone.png',
     path: 'okezone',
-    logoSrc: 'images/site-logos/okezone.png',
     categoryPaths: {
       hot: 'terbaru',
       sport: 'sports',
@@ -26,8 +28,9 @@ export const SITES = [
   },
   {
     name: 'SINDONews',
+    homePage: 'https://www.sindonews.com',
+    logoSrc: '/images/site-logos/sindonews.png',
     path: 'sindonews',
-    logoSrc: 'images/site-logos/sindonews.png',
     categoryPaths: {
       hot: 'terbaru',
       sport: 'sports',
@@ -38,8 +41,9 @@ export const SITES = [
   },
   {
     name: 'Suara.com',
+    homePage: 'https://suara.com',
+    logoSrc: '/images/site-logos/suara.png',
     path: 'suara',
-    logoSrc: 'images/site-logos/suara.png',
     categoryPaths: {
       hot: 'terbaru',
       sport: 'bola',
@@ -49,15 +53,16 @@ export const SITES = [
     },
   },
   {
-    name: 'Tribun',
-    path: 'tribun',
-    logoSrc: 'images/site-logos/tribun.png',
+    name: 'Tempo.co',
+    homePage: 'https://www.tempo.co',
+    logoSrc: '/images/site-logos/tempo.png',
+    path: 'tempo',
     categoryPaths: {
-      hot: 'terbaru',
+      hot: 'nasional',
       sport: 'bola',
-      technology: 'techno',
+      technology: 'tekno',
       automotive: 'otomotif',
-      lifestyle: 'lifestyle',
+      lifestyle: 'gaya',
     },
   },
 ];

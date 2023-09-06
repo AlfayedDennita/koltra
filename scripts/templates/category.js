@@ -2,12 +2,14 @@ export default function categoryTemplate({ id, name, icon, selected }) {
   return `
     <li>
       <button
-        class="category${selected ? ' selected' : ''}"
+        class="news-by-category__category-button${
+          selected ? ' news-by-category__category-button--selected' : ''
+        }"
         type="button"
         title="${name}"
         data-category="${id}"
       >
-        <i class="${icon} fa-fw"></i>
+        <i class="news-by-category__category-button-icon ${icon} fa-fw"></i>
         ${name}
       </button>
     </li>

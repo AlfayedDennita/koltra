@@ -14,6 +14,8 @@
   --gray-rgb: 238, 238, 238;
   --gray-2: #bbbbbb;
   --gray-2-rgb: 187, 187, 187;
+  --gray-3: #555555;
+  --gray-3-rgb: 85, 85, 85;
   --primary: #d63031;
   --primary-rgb: 214, 48, 49;
 }
@@ -23,6 +25,10 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+}
+
+html {
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -122,8 +128,9 @@ img {
 }
 
 .load-error {
-  min-width: 5rem;
-  min-height: 5rem;
+  width: 100%;
+  min-width: 7.5rem;
+  min-height: 7.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
