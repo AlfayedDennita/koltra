@@ -15,7 +15,7 @@ export const SITES = [
     },
   },
   {
-    name: 'Okezone',
+    name: 'Okezone.com',
     homePage: 'https://www.okezone.com',
     logoSrc: '/images/site-logos/okezone.png',
     path: 'okezone',

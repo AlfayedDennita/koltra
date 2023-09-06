@@ -10,17 +10,21 @@ import {
   headlineSidePostTemplate,
   headlineSidePostSkeleton,
 } from './templates/headlineSidePost.js';
-import siteGroupTemplate from './templates/siteGroup.js';
+import { categoryItemTemplate } from './templates/categoryItem.js';
+import { siteGroupTemplate } from './templates/siteGroup.js';
 import {
-  siteGroupNewsTemplate,
-  siteGroupNewsSkeleton,
-} from './templates/siteGroupNews.js';
-import categoryTemplate from './templates/category.js';
+  siteGroupPostTemplate,
+  siteGroupPostSkeleton,
+} from './templates/siteGroupPost.js';
 
 function init() {
   renderNavItems();
   listenToNavActions();
   renderHeadlinePosts();
+  renderCategoryItems();
+  listenToCategoryButtons();
+  renderSiteGroups();
+  renderSiteGroupNews();
 }
 
 init();
@@ -145,36 +149,40 @@ async function renderHeadlinePosts() {
   }
 }
 
-const categoryList = document.querySelector('.news-by-category__category-list');
-categoryList.innerHTML = '';
-CATEGORIES.forEach((category, index) => {
-  categoryList.innerHTML += categoryTemplate({
-    ...category,
-    selected: index === 0,
-  });
-});
+function renderCategoryItems() {
+  const categoryList = document.querySelector(
+    '.news-by-category__category-list'
+  );
+  categoryList.innerHTML = '';
+  for (const [index, category] of CATEGORIES.entries()) {
+    categoryList.innerHTML += categoryItemTemplate({
+      ...category,
+      selected: index === 0,
+    });
+  }
+}
 
-const categoryButtons = document.querySelectorAll(
-  '.news-by-category__category-button'
-);
-categoryButtons.forEach((categoryButton) => {
-  categoryButton.addEventListener('click', () => {
-    const activeCategory = document.querySelector(
-      '.news-by-category__category-button--selected'
-    );
+function listenToCategoryButtons() {
+  const categoryButtons = document.querySelectorAll(
+    '.news-by-category__category-button'
+  );
 
-    if (categoryButton !== activeCategory) {
-      activeCategory.classList.remove(
-        'news-by-category__category-button--selected'
+  for (const categoryButton of categoryButtons) {
+    categoryButton.addEventListener('click', () => {
+      const selectedButtonClass = 'news-by-category__category-button--selected';
+      const selectedCategoryButton = document.querySelector(
+        '.' + selectedButtonClass
       );
-      categoryButton.classList.add(
-        'news-by-category__category-button--selected'
-      );
 
-      renderSiteGroupNews(categoryButton.dataset.category);
-    }
-  });
-});
+      if (categoryButton !== selectedCategoryButton) {
+        selectedCategoryButton.classList.remove(selectedButtonClass);
+        categoryButton.classList.add(selectedButtonClass);
+
+        renderSiteGroupNews(categoryButton.dataset.category);
+      }
+    });
+  }
+}
 
 function renderSiteGroups() {
   const sitesWrapper = document.querySelector(
@@ -182,59 +190,60 @@ function renderSiteGroups() {
   );
   sitesWrapper.innerHTML = '';
 
-  SITES.forEach(({ name, path, logoSrc, homePage }) => {
+  for (const { name, path, logoSrc, homePage } of SITES) {
     sitesWrapper.innerHTML += siteGroupTemplate({
       siteId: path,
       siteName: name,
       siteLogoSrc: logoSrc,
       siteHomePage: homePage,
     });
-  });
+  }
 }
-
-renderSiteGroups();
 
 function renderSiteGroupNews(category = 'hot') {
-  SITES.forEach(async ({ path, categoryPaths }) => {
-    const siteGroupNewsWrapper = document.querySelector(
-      `#${path} .site-group__news-wrapper`
+  for (const { path, categoryPaths } of SITES) {
+    const siteGroupPostsWrapper = document.querySelector(
+      `#${path} .site-group__posts-wrapper`
     );
-    siteGroupNewsWrapper.innerHTML = '';
+
+    siteGroupPostsWrapper.innerHTML = '';
 
     for (let i = 0; i < 5; i++) {
-      siteGroupNewsWrapper.innerHTML += siteGroupNewsSkeleton();
+      siteGroupPostsWrapper.innerHTML += siteGroupPostSkeleton();
     }
 
-    try {
-      const res = await fetch(
-        `${API_BASE_URL}${path}/${categoryPaths[category]}`
-      );
-      const {
-        data: { posts },
-      } = await res.json();
+    const getPostData = async () => {
+      try {
+        const res = await fetch(
+          `${API_BASE_URL}${path}/${categoryPaths[category]}`
+        );
+        const {
+          data: { posts },
+        } = await res.json();
 
-      siteGroupNewsWrapper.innerHTML = '';
+        siteGroupPostsWrapper.innerHTML = '';
 
-      for (const [index, post] of posts.entries()) {
-        const maxPosts = Math.min(posts.length, 5);
+        for (const [index, post] of posts.entries()) {
+          const maxPosts = Math.min(posts.length, 5);
 
-        if (maxPosts < index + 1) {
-          break;
+          if (maxPosts < index + 1) {
+            break;
+          }
+
+          siteGroupPostsWrapper.innerHTML += siteGroupPostTemplate({
+            link: post.link,
+            title: post.title,
+            thumbnailSrc: post.thumbnail,
+            date: post.pubDate
+              ? Intl.DateTimeFormat('id').format(new Date(post.pubDate))
+              : 'Tanpa Tanggal',
+          });
         }
-
-        siteGroupNewsWrapper.innerHTML += siteGroupNewsTemplate({
-          link: post.link,
-          title: post.title,
-          thumbnailSrc: post.thumbnail,
-          date: post.pubDate
-            ? Intl.DateTimeFormat('id').format(new Date(post.pubDate))
-            : null,
-        });
+      } catch (error) {
+        siteGroupPostsWrapper.innerHTML = loadErrorTemplate();
       }
-    } catch (error) {
-      siteGroupNewsWrapper.innerHTML = loadErrorTemplate();
-    }
-  });
-}
+    };
 
-renderSiteGroupNews();
+    getPostData();
+  }
+}

@@ -1,4 +1,4 @@
-export default function siteGroupTemplate({
+export function siteGroupTemplate({
   siteId,
   siteName,
   siteLogoSrc,
@@ -22,7 +22,7 @@ export default function siteGroupTemplate({
           <span class="site-group__link-text">${siteName}</span>
         </a>
       </h3>
-      <div class="site-group__news-wrapper"></div>
+      <div class="site-group__posts-wrapper"></div>
     </section>
   `;
 }

@@ -1,4 +1,4 @@
-export default function categoryTemplate({ id, name, icon, selected }) {
+export function categoryItemTemplate({ id, name, icon, selected }) {
   return `
     <li>
       <button
