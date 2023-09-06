@@ -2,7 +2,7 @@
   z-index: 10;
   position: fixed;
   inset: 0 0 auto 0;
-  height: 4rem;
+  height: var(--header-height);
   display: flex;
   align-items: stretch;
   padding-block: 1rem;
@@ -17,7 +17,7 @@
 }
 
 .header + * {
-  margin-top: 4rem;
+  margin-top: var(--header-height);
 }
 
 .header__container {
@@ -27,7 +27,11 @@
   gap: 1rem;
 }
 
-.nav-toggle {
+.header__brand {
+  font-size: 1.75rem;
+}
+
+.header__nav-toggle {
   z-index: 20;
   width: 1.75rem;
   height: 1.25rem;
@@ -38,12 +42,12 @@
 }
 
 @media (min-width: 768px) {
-  .nav-toggle {
+  .header__nav-toggle {
     display: none;
   }
 }
 
-.nav-toggle > * {
+.header__nav-toggle > * {
   width: 100%;
   height: 0.25rem;
   border-radius: 0.25rem;
@@ -51,19 +55,19 @@
   transition: width 0.15s, background-color 0.25s;
 }
 
-.nav-toggle:hover > * {
+.header__nav-toggle:hover > * {
   background-color: var(--primary);
 }
 
-.nav-toggle--open > *:nth-child(2) {
+.header__nav-toggle--open > *:nth-child(2) {
   width: 75%;
 }
 
-.nav-toggle--open > *:nth-child(3) {
+.header__nav-toggle--open > *:nth-child(3) {
   width: 50%;
 }
 
-.nav {
+.header__nav {
   position: fixed;
   inset: 0;
   translate: 100% 0;
@@ -76,16 +80,16 @@
 }
 
 @media (min-width: 768px) {
-  .nav {
+  .header__nav {
     display: contents;
   }
 }
 
-.nav-toggle--open + .nav {
+.header__nav-toggle--open + .header__nav {
   translate: 0;
 }
 
-.nav__title {
+.header__nav-title {
   padding: 1.2rem 2.5rem 1.2rem 1rem;
   font-size: 1.15rem;
   font-weight: 700;
@@ -93,12 +97,12 @@
 }
 
 @media (min-width: 768px) {
-  .nav__title {
+  .header__nav-title {
     display: none;
   }
 }
 
-.nav__list {
+.header__nav-list {
   list-style: none;
   height: 100%;
   min-height: 5rem;
@@ -108,13 +112,13 @@
 }
 
 @media (min-width: 768px) {
-  .nav__list {
+  .header__nav-list {
     min-height: initial;
     flex-direction: row;
   }
 }
 
-.nav__link {
+.header__nav-link {
   width: 100%;
   height: 100%;
   display: flex;
@@ -124,29 +128,29 @@
   transition: background-color 0.25s, font-weight 0.25s;
 }
 
-.nav__link:hover {
-  background-color: #eeeeee;
+.header__nav-link:hover {
+  background-color: var(--gray-1);
   font-weight: 700;
 }
 
-.nav__link-container {
+.header__nav-link-container {
   transition: padding-left 0.5s;
 }
 
-.nav__link:hover .nav__link-container {
+.header__nav-link:hover .header__nav-link-container {
   padding-left: 0.75rem;
 }
 
 @media (min-width: 768px) {
-  .nav__link {
+  .header__nav-link {
     padding: 1rem 0.5rem;
   }
 
-  .nav__link:hover {
+  .header__nav-link:hover {
     font-weight: 500;
   }
 
-  .nav__link:hover .nav__link-container {
+  .header__nav-link:hover .header__nav-link-container {
     padding: 0;
   }
 }

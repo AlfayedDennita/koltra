@@ -8,16 +8,22 @@
   --white-rgb: 255, 255, 255;
   --black: #000000;
   --black-rgb: 0, 0, 0;
-  --text: #222222;
-  --text-rgb: 34, 34, 34;
-  --gray: #eeeeee;
-  --gray-rgb: 238, 238, 238;
+
+  --gray-1: #eeeeee;
+  --gray-1-rgb: 238, 238, 238;
   --gray-2: #bbbbbb;
   --gray-2-rgb: 187, 187, 187;
   --gray-3: #555555;
   --gray-3-rgb: 85, 85, 85;
+
+  --text: #222222;
+  --text-rgb: 34, 34, 34;
+
   --primary: #d63031;
   --primary-rgb: 214, 48, 49;
+
+  /* Sizing */
+  --header-height: 4rem;
 }
 
 * {
@@ -28,7 +34,7 @@
 }
 
 html {
-  scroll-padding-top: 5rem;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
 }
 
 body {
@@ -48,7 +54,7 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  background-color: #eeeeee;
+  background-color: var(--gray-1);
 }
 
 body::-webkit-scrollbar-thumb {
@@ -82,7 +88,6 @@ img {
 
 .brand {
   font-family: var(--brand-font);
-  font-size: 1.75rem;
   font-weight: 700;
 }
 
@@ -94,14 +99,14 @@ img {
   --truncate-lines: 1;
 
   display: -webkit-box;
-  -webkit-line-clamp: var(--truncate-lines);
+  -webkit-line-clamp: var(--truncate-lines, 1);
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
 .skeleton {
   position: relative;
-  background-color: var(--gray);
+  background-color: var(--gray-1);
   border-radius: 0.25rem;
   overflow: hidden;
 }
@@ -113,10 +118,10 @@ img {
   translate: -100% 0;
   background-image: linear-gradient(
     to right,
-    rgba(var(--white-rgb), 0) 0%,
+    transparent 0%,
     rgba(var(--white-rgb), 0.2) 20%,
     rgba(var(--white-rgb), 0.5) 60%,
-    rgba(var(--white-rgb), 0)
+    transparent
   );
   animation: shimmer 1s infinite;
 }
@@ -137,7 +142,7 @@ img {
   align-items: center;
   gap: 0.5rem;
   padding: 1rem;
-  background-color: var(--gray);
+  background-color: var(--gray-1);
   border-radius: 0.5rem;
   font-size: 0.8rem;
   text-align: center;

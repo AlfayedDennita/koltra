@@ -40,7 +40,7 @@
 }
 
 .footer__brand:hover {
-  color: #bbbbbb;
+  color: var(--gray-2);
 }
 
 .footer__copyright {

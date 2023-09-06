@@ -1,8 +1,8 @@
-export default function navItem({ id, name }) {
+export function navItemTemplate({ id, name }) {
   return `
     <li>
-      <a class="nav__link" href="#${id}" title="${name}">
-        <span class="nav__link-container">${name}</span>
+      <a class="header__nav-link" href="#${id}" title="${name}">
+        <span class="header__nav-link-container">${name}</span>
       </a>
     </li>
   `;

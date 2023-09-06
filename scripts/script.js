@@ -1,5 +1,6 @@
-import { BASE_URL, SITES, CATEGORIES } from './sources.js';
-import navItemTemplate from './templates/navItem.js';
+import { API_BASE_URL, SITES, CATEGORIES } from './constants.js';
+
+import { navItemTemplate } from './templates/navItem.js';
 import {
   headlineMainArticleTemplate,
   headlineMainArticleSkeleton,
@@ -16,11 +17,60 @@ import {
 import loadErrorTemplate from './templates/loadError.js';
 import categoryTemplate from './templates/category.js';
 
-const navList = document.querySelector('.nav__list');
-navList.innerHTML = '';
-SITES.forEach(({ path, name }) => {
-  navList.innerHTML += navItemTemplate({ id: path, name });
-});
+function init() {
+  renderNavItems();
+  listenToNavActions();
+}
+
+init();
+
+function renderNavItems() {
+  const navList = document.querySelector('.header__nav-list');
+  navList.innerHTML = '';
+  SITES.forEach(({ path, name }) => {
+    navList.innerHTML += navItemTemplate({ id: path, name });
+  });
+}
+
+function toggleNav() {
+  if (!window.matchMedia('(min-width: 768px)').matches) {
+    const navToggle = document.querySelector('.header__nav-toggle');
+
+    navToggle.classList.toggle('header__nav-toggle--open');
+
+    const isNavOpened = navToggle.classList.contains(
+      'header__nav-toggle--open'
+    );
+
+    navToggle.setAttribute(
+      'title',
+      (isNavOpened ? 'Close' : 'Open') + ' Navigation'
+    );
+
+    if (isNavOpened) {
+      document.body.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflowY = 'auto';
+    }
+  }
+}
+
+function listenToNavActions() {
+  const navToggle = document.querySelector('.header__nav-toggle');
+  navToggle.addEventListener('click', () => {
+    toggleNav();
+  });
+
+  const navLinks = document.querySelectorAll('.header__nav-link');
+  navLinks.forEach((navLink) => {
+    navLink.addEventListener('click', () => {
+      toggleNav();
+
+      const target = document.querySelector(navLink.getAttribute('href'));
+      target?.scrollIntoView();
+    });
+  });
+}
 
 const categoryList = document.querySelector('.news-by-category__category-list');
 categoryList.innerHTML = '';
@@ -83,7 +133,7 @@ async function renderHeadlineNews() {
     const categoryPath = site.categoryPaths[CATEGORIES[randomCategoryIndex].id];
 
     try {
-      const res = await fetch(`${BASE_URL}${sitePath}/${categoryPath}`);
+      const res = await fetch(`${API_BASE_URL}${sitePath}/${categoryPath}`);
       const news = await res.json();
 
       if (!news.success) {
@@ -166,7 +216,9 @@ function renderSiteGroupNews(category = 'hot') {
     }
 
     try {
-      const res = await fetch(`${BASE_URL}${path}/${categoryPaths[category]}`);
+      const res = await fetch(
+        `${API_BASE_URL}${path}/${categoryPaths[category]}`
+      );
       const {
         data: { posts },
       } = await res.json();
@@ -196,37 +248,3 @@ function renderSiteGroupNews(category = 'hot') {
 }
 
 renderSiteGroupNews();
-
-function toggleNav() {
-  if (!window.matchMedia('(min-width: 768px)').matches) {
-    navToggle.classList.toggle('nav-toggle--open');
-
-    const isNavOpened = navToggle.classList.contains('nav-toggle--open');
-
-    navToggle.setAttribute(
-      'title',
-      (isNavOpened ? 'Close' : 'Open') + ' Navigation'
-    );
-
-    if (isNavOpened) {
-      document.body.style.overflowY = 'hidden';
-    } else {
-      document.body.style.overflowY = 'auto';
-    }
-  }
-}
-
-const navToggle = document.querySelector('.nav-toggle');
-navToggle.addEventListener('click', () => {
-  toggleNav();
-});
-
-const navLinks = document.querySelectorAll('.nav__link');
-navLinks.forEach((navLink) => {
-  navLink.addEventListener('click', () => {
-    toggleNav();
-
-    const target = document.querySelector(navLink.getAttribute('href'));
-    target?.scrollIntoView();
-  });
-});

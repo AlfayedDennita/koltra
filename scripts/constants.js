@@ -1,4 +1,5 @@
-export const BASE_URL = 'https://api-berita-indonesia.vercel.app/';
+export const API_BASE_URL = 'https://api-berita-indonesia.vercel.app/';
+
 export const SITES = [
   {
     name: 'ANTARA News',
@@ -66,6 +67,7 @@ export const SITES = [
     },
   },
 ];
+
 export const CATEGORIES = [
   {
     id: 'hot',
