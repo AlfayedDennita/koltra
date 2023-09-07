@@ -39,40 +39,35 @@ function renderNavItems() {
 
 function toggleNav() {
   if (!window.matchMedia('(min-width: 768px)').matches) {
+    const isNavOpened = document.body.dataset.openNav === 'true';
+
+    if (isNavOpened) {
+      delete document.body.dataset.openNav;
+    } else {
+      document.body.dataset.openNav = 'true';
+    }
+
     const navToggle = document.querySelector('.header__nav-toggle');
-
-    navToggle.classList.toggle('header__nav-toggle--open');
-
-    const isNavOpened = navToggle.classList.contains(
-      'header__nav-toggle--open'
-    );
-
     navToggle.setAttribute(
       'title',
       (isNavOpened ? 'Close' : 'Open') + ' Navigation'
     );
-
-    if (isNavOpened) {
-      document.body.style.overflowY = 'hidden';
-    } else {
-      document.body.style.overflowY = 'auto';
-    }
   }
 }
 
 function listenToNavActions() {
   const navToggle = document.querySelector('.header__nav-toggle');
-  navToggle.addEventListener('click', () => {
-    toggleNav();
-  });
+  navToggle.addEventListener('click', toggleNav);
 
   const navLinks = document.querySelectorAll('.header__nav-link');
   for (const navLink of navLinks) {
     navLink.addEventListener('click', () => {
       toggleNav();
 
-      const target = document.querySelector(navLink.getAttribute('href'));
-      target?.scrollIntoView();
+      const targetSiteGroup = document.querySelector(
+        navLink.getAttribute('href')
+      );
+      targetSiteGroup?.scrollIntoView();
     });
   }
 }
