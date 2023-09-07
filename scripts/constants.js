@@ -4,7 +4,7 @@ export const SITES = [
   {
     name: 'ANTARA News',
     homePage: 'https://www.antaranews.com',
-    logoSrc: '/images/site-logos/antara.png',
+    logoSrc: 'images/site-logos/antara.png',
     path: 'antara',
     categoryPaths: {
       hot: 'terbaru',
@@ -17,7 +17,7 @@ export const SITES = [
   {
     name: 'Okezone.com',
     homePage: 'https://www.okezone.com',
-    logoSrc: '/images/site-logos/okezone.png',
+    logoSrc: 'images/site-logos/okezone.png',
     path: 'okezone',
     categoryPaths: {
       hot: 'terbaru',
@@ -30,7 +30,7 @@ export const SITES = [
   {
     name: 'SINDONews',
     homePage: 'https://www.sindonews.com',
-    logoSrc: '/images/site-logos/sindonews.png',
+    logoSrc: 'images/site-logos/sindonews.png',
     path: 'sindonews',
     categoryPaths: {
       hot: 'terbaru',
@@ -43,7 +43,7 @@ export const SITES = [
   {
     name: 'Suara.com',
     homePage: 'https://suara.com',
-    logoSrc: '/images/site-logos/suara.png',
+    logoSrc: 'images/site-logos/suara.png',
     path: 'suara',
     categoryPaths: {
       hot: 'terbaru',
@@ -56,7 +56,7 @@ export const SITES = [
   {
     name: 'Tempo.co',
     homePage: 'https://www.tempo.co',
-    logoSrc: '/images/site-logos/tempo.png',
+    logoSrc: 'images/site-logos/tempo.png',
     path: 'tempo',
     categoryPaths: {
       hot: 'nasional',

@@ -19,7 +19,7 @@ export function headlineSidePostTemplate({
           class="headline__side-post-thumbnail"
           src="${thumbnailSrc}"
           alt="${title}"
-          onerror="this.onerror=null; this.src='/images/broken-image.jpg'"
+          onerror="this.onerror=null; this.src='images/broken-image.jpg'"
         />
         <div class="headline__side-post-content">
           <img

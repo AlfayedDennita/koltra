@@ -12,7 +12,7 @@ export function siteGroupPostTemplate({ link, title, thumbnailSrc, date }) {
           class="site-group__post-thumbnail"
           src="${thumbnailSrc}"
           alt="${title}"
-          onerror="this.onerror=null; this.src='/images/broken-image.jpg'"
+          onerror="this.onerror=null; this.src='images/broken-image.jpg'"
         />
         <div class="site-group__post-content">
           <p class="site-group__post-date">${date}</p>
