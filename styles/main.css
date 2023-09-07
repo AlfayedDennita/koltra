@@ -511,4 +511,9 @@
 
 .about-dev__cta-icon {
   font-size: 1rem;
+  transition: rotate 0.5s;
+}
+
+.about-dev__cta:hover .about-dev__cta-icon {
+  rotate: 20deg;
 }
