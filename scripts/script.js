@@ -125,20 +125,23 @@ async function renderHeadlinePosts() {
   sidePostsWrapper.innerHTML = '';
 
   for (const [index, post] of headlinePosts.entries()) {
-    if (post === null) {
-      mainPostWrapper.innerHTML += loadErrorTemplate();
-      continue;
-    }
-
     const postData = {
       ...post,
       thumbnailSrc: post.thumbnail,
     };
 
     if (index === 0) {
-      mainPostWrapper.innerHTML += headlineMainPostTemplate(postData);
+      if (post === null) {
+        mainPostWrapper.innerHTML += loadErrorTemplate();
+      } else {
+        mainPostWrapper.innerHTML += headlineMainPostTemplate(postData);
+      }
     } else {
-      sidePostsWrapper.innerHTML += headlineSidePostTemplate(postData);
+      if (post === null) {
+        sidePostsWrapper.innerHTML += loadErrorTemplate();
+      } else {
+        sidePostsWrapper.innerHTML += headlineSidePostTemplate(postData);
+      }
     }
   }
 }
