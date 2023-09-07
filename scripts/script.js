@@ -24,7 +24,7 @@ function init() {
   renderCategoryItems();
   listenToCategoryButtons();
   renderSiteGroups();
-  renderSiteGroupNews();
+  renderSiteGroupPosts();
 }
 
 init();
@@ -98,11 +98,10 @@ async function renderHeadlinePosts() {
     const randomSiteIndex = getRandomArrayIndex(SITES);
     const randomCategoryIndex = getRandomArrayIndex(CATEGORIES);
     const site = SITES[randomSiteIndex];
-    const sitePath = site.path;
     const categoryPath = site.categoryPaths[CATEGORIES[randomCategoryIndex].id];
 
     try {
-      const res = await fetch(`${API_BASE_URL}${sitePath}/${categoryPath}`);
+      const res = await fetch(`${API_BASE_URL}${site.path}/${categoryPath}`);
       const {
         success,
         data: { posts },
@@ -173,7 +172,7 @@ function listenToCategoryButtons() {
         selectedCategoryButton.classList.remove(selectedButtonClass);
         categoryButton.classList.add(selectedButtonClass);
 
-        renderSiteGroupNews(categoryButton.dataset.category);
+        renderSiteGroupPosts(categoryButton.dataset.category);
       }
     });
   }
@@ -195,7 +194,7 @@ function renderSiteGroups() {
   }
 }
 
-function renderSiteGroupNews(category = 'hot') {
+function renderSiteGroupPosts(category = 'hot') {
   for (const { path, categoryPaths } of SITES) {
     const siteGroupPostsWrapper = document.querySelector(
       `#${path} .site-group__posts-wrapper`

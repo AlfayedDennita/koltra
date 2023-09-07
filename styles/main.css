@@ -42,7 +42,7 @@
 
 @media (min-width: 768px) {
   .headline__posts {
-    grid-template-columns: 6fr 4fr;
+    grid-template-columns: 3fr 2fr;
   }
 }
 
@@ -50,14 +50,16 @@
   display: contents;
 }
 
-.headline__main-post {
+.headline__main-post-link {
+  display: block;
   position: relative;
+  height: 100%;
   border-radius: 0.5rem;
   line-height: 1.25;
   overflow: hidden;
 }
 
-.headline__main-post--skeleton {
+.headline__main-post-link--skeleton {
   width: 100%;
   aspect-ratio: 16 / 9;
 }

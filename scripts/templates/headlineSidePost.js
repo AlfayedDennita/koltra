@@ -41,22 +41,20 @@ export function headlineSidePostTemplate({
 
 export function headlineSidePostSkeleton() {
   return `
-    <div class="headline__side-post">
-      <div class="headline__side-post-link">
+    <div class="headline__side-post-link">
+      <div
+        class="skeleton headline__side-post-thumbnail headline__side-post-thumbnail--skeleton"
+      ></div>
+      <div class="headline__side-post-content">
         <div
-          class="headline__side-post-thumbnail headline__side-post-thumbnail--skeleton skeleton"
+          class="skeleton headline__side-post-logo headline__side-post-logo--skeleton"
         ></div>
-        <div class="headline__side-post-content">
-          <div
-            class="headline__side-post-logo headline__side-post-logo--skeleton skeleton"
-          ></div>
-          <div
-            class="headline__side-post-title headline__side-post-title--skeleton skeleton"
-          ></div>
-          <div
-            class="headline__side-post-description headline__side-post-description--skeleton skeleton"
-          ></div>
-        </div>
+        <div
+          class="skeleton headline__side-post-title headline__side-post-title--skeleton"
+        ></div>
+        <div
+          class="skeleton headline__side-post-description headline__side-post-description--skeleton"
+        ></div>
       </div>
     </div>
   `;

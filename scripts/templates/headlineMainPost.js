@@ -42,7 +42,7 @@ export function headlineMainPostTemplate({
 export function headlineMainPostSkeleton() {
   return `
     <div
-      class="headline__main-post headline__main-post--skeleton skeleton"
+      class="skeleton headline__main-post-link headline__main-post-link--skeleton"
     ></div>
   `;
 }
