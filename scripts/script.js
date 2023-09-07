@@ -212,8 +212,13 @@ function renderSiteGroupPosts(category = 'hot') {
           `${API_BASE_URL}${path}/${categoryPaths[category]}`
         );
         const {
+          success,
           data: { posts },
         } = await res.json();
+
+        if (!success) {
+          throw new Error();
+        }
 
         siteGroupPostsWrapper.innerHTML = '';
 
