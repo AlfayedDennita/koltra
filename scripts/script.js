@@ -187,6 +187,8 @@ function renderSiteGroups() {
   );
   sitesWrapper.innerHTML = '';
 
+  const activeHash = window.location.hash.substring(1);
+
   for (const { name, path, logoSrc, homePage } of SITES) {
     sitesWrapper.innerHTML += siteGroupTemplate({
       siteId: path,
@@ -194,6 +196,12 @@ function renderSiteGroups() {
       siteLogoSrc: logoSrc,
       siteHomePage: homePage,
     });
+
+    if (path === activeHash) {
+      setTimeout(() => {
+        document.querySelector('#' + activeHash)?.scrollIntoView();
+      }, 500);
+    }
   }
 }
 
