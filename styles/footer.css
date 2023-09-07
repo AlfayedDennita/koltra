@@ -1,7 +1,7 @@
 .footer {
   padding-block: 1.5rem;
   background-color: #222222;
-  border-top: 0.15rem solid #111111;
+  border-top: 0.25rem solid #111111;
   color: #999999;
   text-align: center;
 }
@@ -30,11 +30,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.1rem;
 }
 
 .footer__brand {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   user-select: none;
   transition: color 0.25s;
 }
